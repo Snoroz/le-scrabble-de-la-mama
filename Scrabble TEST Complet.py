@@ -111,10 +111,10 @@ def affiche_jetons(j, bonus_plateau=None): # Question 3 et 4
         bonus = bonus_plateau
         
     taille = len(j)
-    LD = '°'
-    LT = '^'
-    MD = '²'
-    MT = '*' 
+    dico_bonus = {'LD': '°',
+                   'LT': '^',
+                   'MD': '²',
+                   'MT': '*'}
     # correction : ne pas réinitialiser bonus ici (on utilise le bonus passé)
     # bonus = init_bonus()
 
@@ -147,14 +147,8 @@ def affiche_jetons(j, bonus_plateau=None): # Question 3 et 4
 
             if case == "":
                 case = " "
-                if case_b == "LD":
-                    case = LD
-                elif case_b == "LT":
-                    case = LT
-                elif case_b == "MD":
-                    case = MD
-                elif case_b == "MT":
-                    case = MT
+                if case_b in dico_bonus:
+                    case = dico_bonus[case_b]
             else:
                 if case_b != "":
                     case += "*"
@@ -740,5 +734,6 @@ while len(sac)>0:
 
 # Fin de partie le sac est vide
 detecte_fin_partie(sac, joueurs, dico)
+
 
 
