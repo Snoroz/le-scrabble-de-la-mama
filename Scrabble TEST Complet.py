@@ -529,7 +529,7 @@ def tester_placement(plat, i, j, direction, mot):  # Question 30
             elif case == c:
                 lettres.append(c + '!')   # On marque que la lettre est déjà présente
             else:
-                return []                 # Placement impossible
+                return []                 
 
     elif direction == 'vertical':
         for k, c in enumerate(mot):
@@ -598,7 +598,6 @@ def valeur_mot2(plat, main, i, j, direction, mot, dico, bonus_plateau):  # Quest
             
             # si la lettre a été placée via un joker, elle est en minuscule sur le plateau
             lettre_plateau = plat[i][j+k]
-            # utiliser la lettre réelle en majuscule pour consulter le dictionnaire
             if isinstance(lettre_plateau, str) and lettre_plateau != '':
                 lettre_val = '?'
             else:
@@ -666,8 +665,9 @@ def valeur_mot2(plat, main, i, j, direction, mot, dico, bonus_plateau):  # Quest
 
 def tour_joueur2(plat, main,): #Question 34 
     affiche_jetons(plat, bonus_plateau)
-    jetons_e=[]
     coup=input("que voulez vous faire (passer/echanger/proposer )")
+    while coup in ['passer','echanger','proposer']:
+         coup=input("que voulez vous faire (passer/echanger/proposer )")
     if coup=="echanger":
         j=input("Entrer les jetons a échanger  ")
         while j!='!':
@@ -679,8 +679,13 @@ def tour_joueur2(plat, main,): #Question 34
     elif coup=='proposer':
         valeur=0
         i=int(input('entrer les coordonnées de la ligne : ')) 
-        j=int(input('entrer les coordonnées de la colonne : ')) 
+        j=int(input('entrer les coordonnées de la colonne : '))
+        while not 0<=i<=14 and not 0<=j<=14:
+            i=int(input('entrer les coordonnées de la ligne : ')) 
+            j=int(input('entrer les coordonnées de la colonne : '))
         direction=input('Entrer une direction (vertical/horizontal) : ')
+        while not direction in ['vertical','horizontal']:
+             direction=input('Entrer une direction (vertical/horizontal) : ')
         print(mot_jouables2(motsfr,main))
         mot=input('Quelle mot proposer vous ? :  ')
 
@@ -699,13 +704,16 @@ def tour_joueur2(plat, main,): #Question 34
 
 # on crée les joueurs
 nb_joueur=int(input('Nombre de joueur : '))
+while type(nb_joueurs) != int:
+    nb_joueur=int(input('Nombre de joueur : '))
 joueurs={}
 for i in range(nb_joueur): 
     J=input('Saisissez les nom des joueurs :  ')
     joueurs[J] = {"main": [], "score": 0}
 
 # On crée la pioche
-sac=init_pioche(dico) 
+sac=init_pioche(dico)
+random.shuffle(sac)
     
 # début de partie
 for nom in joueurs:
@@ -734,6 +742,7 @@ while len(sac)>0:
 
 # Fin de partie le sac est vide
 detecte_fin_partie(sac, joueurs, dico)
+
 
 
 
