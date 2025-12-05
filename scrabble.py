@@ -5,7 +5,7 @@
 i11_HACKERT_YYYY_projet.py : CR projet « srabble », groupe ZZZ
 
 HACKERT <vadim.hackert@etu-univ-grenoble-alpes.fr>
-YYYY <prenom.nom@univ-grenoble-alpes.fr>
+NGOMA <bruno.ngoma@univ-grenoble-alpes.fr>
 -----------------------------------------------------------------------------
 """
 
@@ -213,7 +213,7 @@ def completer_main(main, sac): # Question 9
 
 
 def echanger(jetons, main, sac): # Question 10
-    R=True
+    R = True
     # on enleve les jetons de la main 
     jetons_retires = []
     for x in jetons:
@@ -225,7 +225,7 @@ def echanger(jetons, main, sac): # Question 10
     sac.extend(jetons_retires)
     random.shuffle(sac)
 
-    main2=completer_main (main, sac)
+    main2 = completer_main (main, sac)
     if len(main2)<7:
         R=False
     if R:
@@ -598,7 +598,7 @@ def valeur_mot2(plat, main, i, j, direction, mot, dico, bonus_plateau):  # Quest
             
             # si la lettre a été placée via un joker, elle est en minuscule sur le plateau
             lettre_plateau = plat[i][j+k]
-            if isinstance(lettre_plateau, str) and lettre_plateau != '':
+            if 'a'<=lettre_plateau<='z' and lettre_plateau != '':
                 lettre_val = '?'
             else:
                 lettre_val = l
@@ -631,8 +631,8 @@ def valeur_mot2(plat, main, i, j, direction, mot, dico, bonus_plateau):  # Quest
 
         for k, l in enumerate(mot):
             lettre_plateau = plat[i+k][j]
-            if isinstance(lettre_plateau, str) and lettre_plateau != '':
-                lettre_val = lettre_plateau.upper()
+             if 'a'<=lettre_plateau<='z' and lettre_plateau != '':
+                lettre_val = '?'
             else:
                 lettre_val = l
             val = dico[lettre_val]['val']
@@ -664,10 +664,12 @@ def valeur_mot2(plat, main, i, j, direction, mot, dico, bonus_plateau):  # Quest
 # PARTIE 7
 
 def tour_joueur2(plat, main,): #Question 34 
+    
     affiche_jetons(plat, bonus_plateau)
-    coup=input("que voulez vous faire (passer/echanger/proposer )")
+    coup = input("que voulez vous faire (passer/echanger/proposer )")
     while coup in ['passer','echanger','proposer']:
          coup=input("que voulez vous faire (passer/echanger/proposer )")
+    
     if coup=="echanger":
         j=input("Entrer les jetons a échanger  ")
         while j!='!':
@@ -683,6 +685,7 @@ def tour_joueur2(plat, main,): #Question 34
         while not 0<=i<=14 and not 0<=j<=14:
             i=int(input('entrer les coordonnées de la ligne : ')) 
             j=int(input('entrer les coordonnées de la colonne : '))
+        
         direction=input('Entrer une direction (vertical/horizontal) : ')
         while not direction in ['vertical','horizontal']:
              direction=input('Entrer une direction (vertical/horizontal) : ')
@@ -704,7 +707,7 @@ def tour_joueur2(plat, main,): #Question 34
 
 # on crée les joueurs
 nb_joueur=int(input('Nombre de joueur : '))
-while type(nb_joueurs) != int:
+while type(nb_joueurs) != int and 2<=nb_joueur<=14 :
     nb_joueur=int(input('Nombre de joueur : '))
 joueurs={}
 for i in range(nb_joueur): 
@@ -742,6 +745,7 @@ while len(sac)>0:
 
 # Fin de partie le sac est vide
 detecte_fin_partie(sac, joueurs, dico)
+
 
 
 
